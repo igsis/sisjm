@@ -5,7 +5,7 @@ function bancoMysqli()
 	$servidor = 'localhost';
 	$usuario = 'root';
 	$senha = '';
-	$banco = 'siscontrat';
+	$banco = 'sisjm';
 	$con = mysqli_connect($servidor,$usuario,$senha,$banco);
 	mysqli_set_charset($con,"utf8");
 	return $con;
@@ -16,7 +16,7 @@ function bancoPDO()
 	$host = 'localhost';
 	$user = 'root';
 	$pass = '';
-	$db = 'siscontrat';
+	$db = 'sisjm';
 	$charset = 'utf8';
 	$dsn = "mysql:host=$host;dbname=$db;charset=$charset;";
 
