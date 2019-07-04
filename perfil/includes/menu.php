@@ -2,10 +2,10 @@
 $idUsuario = $_SESSION['idUser'];
 
 $con = bancoMysqli();
-$sql_user = "SELECT perfil_id from usuarios WHERE id = '$idUsuario'";
+$sql_user = "SELECT id from usuarios WHERE id = '$idUsuario'";
 $query_user = mysqli_query($con,$sql_user);
 $user = mysqli_fetch_array($query_user);
-$u_perfil = $user['perfil_id'];
+$u_perfil = $user['id'];
 
 $sql_perfil = "SELECT * FROM modulo_perfis 
               INNER JOIN modulos AS m ON modulo_perfis.modulo_id = m.id 
@@ -23,6 +23,7 @@ $query_perfil = mysqli_query($con,$sql_perfil);
 
             <li class="header">MÓDULOS</li>
             <li><a href="#"><i class="fa fa-circle-o red"></i> <span>Inicio</span></a></li>
+            <li><a href="?perfil=consulta"><i class="fa fa-user"></i><span>Tela de consulta</span></a></li>
 
             <li class="header">MAIS</li>
             <li><a href="?perfil=usuario/minha_conta"><i class="fa fa-user"></i><span>Minha Conta</span></a></li>
