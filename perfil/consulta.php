@@ -2,7 +2,8 @@
 include "includes/menu.php";
 $con = bancoCapac();
 
-$sql = "SELECT pf.id, pf.nome, pf.cpf, jm.ativo 
+//$jovem_monitor = recuperaDados("pessoa_fisica", "id");
+$sql = "SELECT pf.id AS idJm, pf.nome, pf.rg, pf.cpf, jm.ativo 
         FROM pessoa_fisica AS pf 
         JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
         WHERE pf.publicado = 1";
@@ -36,10 +37,12 @@ if ($linha >= 1) {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="tblEvento2" class="table table-bordered table-striped">
+                        <table id="tbl" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>RG</th>
+                                <th>CPF</th>
                                 <th>Ano</th>
                                 <th>Ativo/Inativo</th>
                                 <th>Visualizar</th>
@@ -57,11 +60,13 @@ if ($linha >= 1) {
                                 }
                                 echo "<tr>";
                                 echo "<td>" . $jovem_monitor['nome'] . "</td>";
+                                echo "<td>" . $jovem_monitor['rg'] . "</td>";
+                                echo "<td>" . $jovem_monitor['cpf'] . "</td>";
                                 echo "<td>" . $jovem_monitor['cpf'] . "</td>";
                                 echo "<td>" . $ativo . "</td>";
                                 echo "<td>
-                                    <form method=\"POST\" action=\"?perfil=inicio\" role=\"form\">
-                                    <input type='hidden' name='idJm' value='" . $jovem_monitor['id'] . "'>
+                                    <form method=\"POST\" action=\"?perfil=visualizar_jm\" role=\"form\">
+                                    <input type='hidden' name='idJm' value='" . $jovem_monitor['idJm'] . "'>
                                     <button type=\"submit\" name='carregar' class=\"btn btn-block btn-primary\"><span class='glyphicon glyphicon-eye-open'></span></button>
                                     </form>
                                 </td>";
@@ -69,8 +74,8 @@ if ($linha >= 1) {
                                 <td>
                                     <form method="post" id="formExcluir">
                                         <input type="hidden" name="idJm" value="<?= $jovem_monitor['id'] ?>">
-                                        <button type="button" class="btn btn-block btn-danger" id="excluiEvento"
-                                                data-toggle="modal" data-target="#exclusao" name="excluiEvento"
+                                        <button type="button" class="btn btn-block btn-danger" id="excluiJm"
+                                                data-toggle="modal" data-target="#exclusao" name="excluiJm"
                                                 data-name="<?= $jovem_monitor['nome'] ?>"
                                                 data-id="<?= $jovem_monitor['id'] ?>">
                                             <span class="glyphicon glyphicon-trash"></span></button>
@@ -83,9 +88,11 @@ if ($linha >= 1) {
                             ?>
                             <tfoot>
                             <tr>
-                                <th>Nome do evento</th>
-                                <th>Tipo do evento</th>
-                                <th>Status</th>
+                                <th>Nome</th>
+                                <th>RG</th>
+                                <th>CPF</th>
+                                <th>Ano</th>
+                                <th>Ativo/Inativo</th>
                                 <th colspan="2" width="15%"></th>
                             </tr>
                             </tfoot>
