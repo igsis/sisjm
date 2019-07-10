@@ -1316,3 +1316,13 @@ function geraProtocolo($id)
     $preencheZeros = str_pad($id, 5, '0', STR_PAD_LEFT);
     return $date . $preencheZeros;
 }
+
+function recuperaDadosCapac($tabela, $campo, $variavelCampo)
+{
+    //retorna uma array com os dados de qualquer tabela. serve apenas para 1 registro.
+    $con = bancoCapac();
+    $sql = "SELECT * FROM $tabela WHERE ".$campo." = '$variavelCampo' LIMIT 0,1";
+    $query = mysqli_query($con,$sql);
+    $campo = mysqli_fetch_array($query);
+    return $campo;
+}
