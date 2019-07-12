@@ -1,63 +1,72 @@
 <?php
-include "includes/menu.php";
-$con = bancoCapac();
+    include "includes/menu.php";
+    $con = bancoCapac();
 
-$consulta = isset($_POST['filtrar']) ? 1 : 0;
-$displayForm = 'block';
-$displayBotoes = 'none';
+    $consulta = isset($_POST['filtrar']) ? 1 : 0;
+    $displayForm = 'block';
+    $displayBotoes = 'none';
 
-if (isset($_POST['filtrar'])) {
-    // $data = ($_POST['data']);
-    $nome = $_POST['nome'] ?? null;
-    $rg = $_POST['rg'] ?? null;
-    $cpf = $_POST['cpf'] ?? null;
+    if (isset($_POST['filtrar'])) {
+        // $data = ($_POST['data']);
+        $nome = $_POST['nome'] ?? null;
+        $rg = $_POST['rg'] ?? null;
+        $cpf = $_POST['cpf'] ?? null;
 
-    /* if ($data != '') {
-         $filtro_data = "pf.dataAtualizacao > '$data'";
-     } else {
-         $filtro_data = "";
-     }*/
+        /* if ($data != '') {
+             $filtro_data = "pf.dataAtualizacao > '$data'";
+         } else {
+             $filtro_data = "";
+         }*/
 
-    if ($nome != '') {
-        $filtro_nome = "AND pf.nome = '$nome'";
-    } else {
-        $filtro_nome = "";
+        if ($nome != '') {
+            $filtro_nome = "AND pf.nome = '$nome'";
+        } else {
+            $filtro_nome = "";
+        }
+
+        if ($rg != '') {
+            $filtro_rg = "AND pf.rg = '$rg'";
+        } else {
+            $filtro_rg = "";
+        }
+
+        if ($cpf != '') {
+            $filtro_cpf = "AND pf.cpf = '$cpf'";
+        } else {
+            $filtro_cpf = "";
+        }
+
+        $sql = "SELECT pf.id AS idJm, pf.nome, pf.rg, pf.cpf, jm.ativo 
+            FROM pessoa_fisica AS pf 
+            JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
+            WHERE pf.publicado = 1
+            $filtro_nome
+            $filtro_rg
+            $filtro_cpf";
+
+        $query = mysqli_query($con, $sql);
+        $num = mysqli_num_rows($query);
+
+        if ($num > 0) {
+            $mensagem = "Foram encontrados $num resultados";
+            $consulta = 1;
+            $displayForm = 'none';
+            $displayBotoes = 'block';
+
+        } else {
+            $consulta = 0;
+            $mensagem = "Não foram encontrados resultados para esta pesquisa!";
+        }
     }
-
-    if ($rg != '') {
-        $filtro_rg = "AND pf.rg = '$rg'";
-    } else {
-        $filtro_rg = "";
+    if(isset($_POST['excluir'])){
+        $idJm = $_POST['idJm'];
+        $sql_apagar = "UPDATE jm_dados SET publicado = 0 WHERE pessoa_fisica_id = '$idJm'";
+        If(mysqli_query($con,$sql_apagar)){
+            $mensagem = mensagem("success","Alteração realizada com sucesso!");
+        }else{
+            $mensagem = mensagem("danger","Erro ao gravar! Tente novamente.");
+        }
     }
-
-    if ($cpf != '') {
-        $filtro_cpf = "AND pf.cpf = '$cpf'";
-    } else {
-        $filtro_cpf = "";
-    }
-
-    $sql = "SELECT pf.id AS idJm, pf.nome, pf.rg, pf.cpf, jm.ativo 
-        FROM pessoa_fisica AS pf 
-        JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
-        WHERE pf.publicado = 1
-        $filtro_nome
-        $filtro_rg
-        $filtro_cpf";
-
-    $query = mysqli_query($con, $sql);
-    $num = mysqli_num_rows($query);
-
-    if ($num > 0) {
-        $mensagem = "Foram encontrados $num resultados";
-        $consulta = 1;
-        $displayForm = 'none';
-        $displayBotoes = 'block';
-
-    } else {
-        $consulta = 0;
-        $mensagem = "Não foram encontrados resultados para esta pesquisa!";
-    }
-}
 ?>
 <section class="content-wrapper">
     <div class="box-body">
@@ -85,12 +94,12 @@ if (isset($_POST['filtrar'])) {
             </div>
             <input type="submit" class="btn btn-theme btn-block" name="filtrar" id="filtrar" value="Filtrar">
         </form>
-        <h6><?php if (isset($mensagem)) {
+        <h5><?php if (isset($mensagem)) {
                 echo $mensagem;
-            } ?></h6>
+            } ?></h5>
     </div>
 
-    <div class="container" id="resultado">
+    <div  id="resultado">
         <?php
         if ($consulta == 1) {
             ?>
@@ -130,11 +139,11 @@ if (isset($_POST['filtrar'])) {
                     ?>
                     <td>
                         <form method="post" id="formExcluir">
-                            <input type="hidden" name="idJm" value="<?= $jovem_monitor['id'] ?>">
-                            <button type="button" class="btn btn-block btn-danger" id="excluiJm"
-                                    data-toggle="modal" data-target="#exclusao" name="excluiJm"
+                            <input type='hidden' name='idJm' value="<?= $idJm?>">
+                            <button type="button" class="btn btn-block btn-danger" id="excluiEvento"
+                                    data-toggle="modal" data-target="#exclusao" name="excluiEvento"
                                     data-name="<?= $jovem_monitor['nome'] ?>"
-                                    data-id="<?= $jovem_monitor['id'] ?>">
+                                    data-id="<?= $jovem_monitor['idJm'] ?>">
                                 <span class="glyphicon glyphicon-trash"></span></button>
                         </form>
                     </td>
@@ -160,6 +169,48 @@ if (isset($_POST['filtrar'])) {
     </div>
 </section>
 
+<div id="exclusao" class="modal modal-danger modal fade in" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h4 class="modal-title">Confirmação de Exclusão</h4>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir este Jovem Monitor?</p>
+                <div class="modal-footer">
+                    <form action="?perfil=consulta" method="post">
+                        <input type="hidden" name="idJm" id="idJm" value="">
+                        <input type="hidden" name="apagar" id="apagar">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+                        <input class="btn btn-danger btn-outline" type="submit" name="excluir" value="Apagar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#tbl').DataTable({
+            "language": {
+                "url": 'bower_components/datatables.net/Portuguese-Brasil.json'
+            },
+            "responsive": true,
+            "dom": "<'row'<'col-sm-6'l><'col-sm-6 text-right'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7 text-right'p>>",
+        });
+    });
+</script>
+<script type="text/javascript">
+    $('#exclusao').on('show.bs.modal',function (e){
+        let evento = $(e.relatedTarget).attr('data-name');
+        let id = $(e.relatedTarget).attr('data-id');
+
+        $(this).find('p').text(`Tem certeza que deseja excluir este Jovem Monitor ${evento}?`);
+        $(this).find('#idEvent').attr('value',`${id}`);
+    })
+</script>
 <script>
     function mostraDiv() {
         let form = document.querySelector('#testeTana');
@@ -171,30 +222,4 @@ if (isset($_POST['filtrar'])) {
         let resultado = document.querySelector('#resultado');
         resultado.style.display = 'none';
     }
-
-    function desabilitaFiltrar() {
-
-        var inicio = document.querySelector("#inicio");
-        var filtrar = document.querySelector("#filtrar");
-
-        if (inicio.value.length != 0) {
-            filtrar.disabled = false;
-        } else {
-            filtrar.disabled = true;
-        }
-    }
 </script>
-
-<script>
-    $(function () {
-        var usuarios = [];
-        $.getJSON("ajax_usuario.php", function (result) {
-            $.each(result, function (i, field) {
-                usuarios.push(field.nome_completo);
-            });
-        });
-
-        $("#inserido").autocomplete({
-            source: usuarios
-        });
-    });
