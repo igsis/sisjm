@@ -1,5 +1,5 @@
 <?php
-include "includes/menu_interno.php";
+include "../perfil/includes/menu.php";
 $con = bancoMysqli();
 $idUser = $_SESSION['idUser'];
 $usuario = recuperaDados('usuarios', 'id', $idUser);
