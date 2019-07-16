@@ -117,17 +117,17 @@ if (isset($_POST['edita'])){
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="ativo">Válidar Cadastro:</label> <br>
-                    <label><input type="radio" class="valido" name="valido" value="1"
-                                  id="sim" <?= $jm['valido'] == 1 ? 'checked' : NULL ?>> Válido </label>&nbsp;&nbsp;
-                    <label><input type="radio" class="valido" name="valido" value="0"
-                                  id="nao" <?= $jm['valido'] == 0 ? 'checked' : NULL ?>> Inválido </label>
+                    <select class="form-control"  name="valido" id="valido">
+                        <option name="valido" value="1" id="sim" <?= $jm['valido'] == 1 ? 'selected' : NULL ?>>Válido</option>
+                        <option name="valido" value="0" id="nao" <?= $jm['valido'] == 0 ? 'selected' : NULL ?>>Inválido</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="ativo">Atividade do Jovem Monitor:</label> <br>
-                    <label><input type="radio" class="ativo" name="ativo" value="1"
-                                  id="sim" <?= $jm['ativo'] == 1 ? 'checked' : NULL ?>> Ativo </label>&nbsp;&nbsp;
-                    <label><input type="radio" class="ativo" name="ativo" value="0"
-                                  id="nao" <?= $jm['ativo'] == 0 ? 'checked' : NULL ?>> Inativo </label>
+                    <select class="form-control"  name="ativo" id="ativo">
+                        <option name="ativo" value="1" id="sim" <?= $jm['ativo'] == 1 ? 'selected' : NULL ?>>Ativo</option>
+                        <option name="ativo" value="0" id="nao" <?= $jm['ativo'] == 0 ? 'selected' : NULL ?>>Inativo</option>
+                    </select>
                 </div>
             </div>
             <div class="box-footer">

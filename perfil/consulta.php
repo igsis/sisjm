@@ -72,7 +72,7 @@
     <div class="box-body">
         <form method="POST" action="?perfil=consulta">
             <h4 align="center"><b> Consulta Jovem Monitor - Filtrar </b></h4>
-
+            <br>
             <div class="justify-content-center align-items-center row">
                 <div class="col-md-3">
                     <label> Nome</label> <br>
@@ -92,7 +92,7 @@
                     <br>
                 </div>
             </div>
-            <input type="submit" class="btn btn-theme btn-block" name="filtrar" id="filtrar" value="Filtrar">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" name="filtrar" id="filtrar" value="Filtrar">
         </form>
         <h5><?php if (isset($mensagem)) {
                 echo $mensagem;
@@ -139,11 +139,9 @@
                     ?>
                     <td>
                         <form method="post" id="formExcluir">
-                            <input type='hidden' name='idJm' value="<?= $idJm?>">
-                            <button type="button" class="btn btn-block btn-danger" id="excluiEvento"
-                                    data-toggle="modal" data-target="#exclusao" name="excluiEvento"
-                                    data-name="<?= $jovem_monitor['nome'] ?>"
-                                    data-id="<?= $jovem_monitor['idJm'] ?>">
+                            <input type='hidden' name='idJm' value="<?= $jovem_monitor['idJm']?>">
+                            <button type="button" class="btn btn-block btn-danger" id="excluiJm"
+                                    data-toggle="modal" data-target="#confirmApagar" name="excluJm">
                                 <span class="glyphicon glyphicon-trash"></span></button>
                         </form>
                     </td>
@@ -167,27 +165,32 @@
         }
         ?>
     </div>
-</section>
-
-<div id="exclusao" class="modal modal-danger modal fade in" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">x</button>
-            <h4 class="modal-title">Confirmação de Exclusão</h4>
-            <div class="modal-body">
-                <p>Tem certeza que deseja excluir este Jovem Monitor?</p>
-                <div class="modal-footer">
-                    <form action="?perfil=consulta" method="post">
-                        <input type="hidden" name="idJm" id="idJm" value="">
-                        <input type="hidden" name="apagar" id="apagar">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
-                        <input class="btn btn-danger btn-outline" type="submit" name="excluir" value="Apagar">
-                    </form>
+    <!-- Confirmação de Exclusão -->
+    <div class="modal fade" id="confirmApagar" role="dialog" aria-labelledby="confirmApagarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Excluir Arquivo?</h4>
                 </div>
+                <div class="modal-body">
+                    <p>Tem certeza que deseja excluir este Jovem Monitor?? </p>
+                </div>
+                <form action="?perfil=consulta" method="post">
+                    <input type="hidden" name="idJm" id="idJm" value="<?= $jovem_monitor['idJm']?>">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger" name="excluir" value="Apagar">Remover</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
-</div>
+    <!-- Fim Confirmação de Exclusão -->
+</section>
+
+
 
 <script type="text/javascript">
     $(function () {
@@ -201,15 +204,6 @@
                 "<'row'<'col-sm-5'i><'col-sm-7 text-right'p>>",
         });
     });
-</script>
-<script type="text/javascript">
-    $('#exclusao').on('show.bs.modal',function (e){
-        let evento = $(e.relatedTarget).attr('data-name');
-        let id = $(e.relatedTarget).attr('data-id');
-
-        $(this).find('p').text(`Tem certeza que deseja excluir este Jovem Monitor ${evento}?`);
-        $(this).find('#idEvent').attr('value',`${id}`);
-    })
 </script>
 <script>
     function mostraDiv() {
