@@ -48,7 +48,6 @@ if (isset($_POST['atualizar'])) {
 $usuario = recuperaDados('usuarios', 'id', $idUser);
 ?>
 
-
 <div class="content-wrapper">
     <section class="content">
 
@@ -84,7 +83,7 @@ $usuario = recuperaDados('usuarios', 'id', $idUser);
 
                                 <div class="form-group col-md-2">
                                     <label for="telefone">Telefone: </label>
-                                    <input type="text" class="form-control" id="telefone" name="telefone"
+                                    <input type="text" class="form-control" data-mask="(00) 00000-0000" id="telefone" name="telefone"
                                            value="<?= $usuario['telefone'] ?>">
                                 </div>
                             </div>
@@ -107,13 +106,6 @@ $usuario = recuperaDados('usuarios', 'id', $idUser);
                                            onblur="comparaSenhas()" onkeypress="comparaSenhas()">
                                 </div>
                             </div>
-
-                                <div class="form-group">
-                                    <label for="ultimo_acesso">Último acesso: </label>
-                                    <input type="text" readonly class="form-control" id="ultimo_acesso"
-                                           name="ultimo_acesso" value="<?= exibirDataBr($usuario['ultimo_acesso']) ?>">
-                                </div>
-
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-default">Cancelar</button>
                                 <button type="submit" name="atualizar" id="atualizar" class="btn btn-info pull-right">
