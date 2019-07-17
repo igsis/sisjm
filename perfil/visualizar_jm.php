@@ -22,7 +22,6 @@ if (isset($_POST['edita'])){
     }
 }
 
-
 /*if(isset($_POST['apagar']))
 {
     $idArquivo = $_POST['apagar'];
@@ -38,7 +37,6 @@ if (isset($_POST['edita'])){
     }
 }*/
 ?>
-
 <section class="content-wrapper">
     <div class="content">
         <h4>DADOS JOVEM MONITOR</h4>
@@ -138,15 +136,21 @@ if (isset($_POST['edita'])){
         </form>
     </div>
 
+    <!-- Confirmação de Exclusão -->
     <div class="modal fade" id="confirmApagar" role="dialog" aria-labelledby="confirmApagarLabel" aria-hidden="true">
+        ?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Excluir Arquivo?</h4>
+                    <h4 class="modal-title">Excluir Arquivo</h4>
                 </div>
+                <form action="?perfil=visualizar" method="post">
+
+                    <input type="hidden" name="idJm" id="idJm" value="<?= $jovem_monitor['idJm']?>">
+                </form>
                 <div class="modal-body">
-                    <p>Deseja excluir este arquivo?</p>
+                    <p>Deseja realmente remover este arquivo?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

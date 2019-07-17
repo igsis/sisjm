@@ -22,8 +22,8 @@ $query_perfil = mysqli_query($con,$sql_perfil);
             <li><a href="?secao=perfil"><i class="fa fa-home"></i><span>Home</span></a></li>
 
             <li class="header">MÓDULOS</li>
-            <li><a href="?perfil=consulta"><i class="fa fa-circle-o "></i><span>Tela de consulta</span></a></li>
-            <li><a href="?perfil=exportar"><i class="fa fa-circle-o"></i><span>Exportar</span></a></li>
+            <li><a href="?perfil=consulta"><i class="fa fa-circle-o "></i><span>Consulta Jovem Monitor</span></a></li>
+            <li><a href="?perfil=exportar"><i class="fa fa-circle-o"></i><span>Exportar para Excel</span></a></li>
 
             <li class="header">MAIS</li>
             <li><a href="?perfil=usuario/minha_conta"><i class="fa fa-user"></i><span>Minha Conta</span></a></li>
