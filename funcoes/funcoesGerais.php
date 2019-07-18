@@ -1368,10 +1368,11 @@ function listaArquivosPessoa($idPessoa,$tipoPessoa,$pagina, $idsDeterminados = '
 						<td class='list_description'>
 							<form id='apagarArq' method='POST' action='?perfil=".$pagina."'>
 								<input type='hidden' name='idPessoa' value='".$idPessoa."' />
+								<input type='hidden' name='idJm' value='".$idPessoa."' />
 								<input type='hidden' name='tipoPessoa' value='".$tipoPessoa."' />
 								<input type='hidden' name='apagar' value='".$arquivo['idUploadListaDocumento']."' />
 								<input type='hidden' name='idListaDocumento' value='".$arquivo['idUploadListaDocumento']."' />
-								<button class='btn btn-theme' type='button' data-toggle='modal' data-target='#confirmApagar' data-title='Remover Arquivo?' data-message='Deseja realmente excluir o arquivo ".$arquivo['documento']."?'>Remover
+								<button class='btn btn-theme' type='submit' data-toggle='modal' data-target='#confirmApagar' data-title='Remover Arquivo?' data-message='Deseja realmente excluir o arquivo ".$arquivo['documento']."?'>Remover
 								</button></td>
 							</form>";
             echo "</tr>";
@@ -1384,5 +1385,27 @@ function listaArquivosPessoa($idPessoa,$tipoPessoa,$pagina, $idsDeterminados = '
     else
     {
         echo "<p>Não há arquivo(s) inserido(s).<p/><br/>";
+    }
+}
+
+
+function verificaArquivosExistentesJM($idPessoa,$idDocumento)
+{
+    $con = bancoCapac();
+    $verificacaoArquivo = "SELECT arquivo FROM upload_arquivo WHERE idTipoPessoa = '7' AND idPessoa = '$idPessoa' AND idUploadListaDocumento = '$idDocumento' AND publicado = '1'";
+    $envio = mysqli_query($con, $verificacaoArquivo);
+    if (mysqli_num_rows($envio) > 0) {
+        return true;
+    }
+}
+
+function verificaArquivosExistentes($idPessoa,$idDocumento)
+{
+    $con = bancoCapac();
+    $verificacaoArquivo = "SELECT arquivo FROM upload_arquivo WHERE  idTipoPessoa = 7 AND  idPessoa = '$idPessoa' AND idUploadListaDocumento = '$idDocumento' AND publicado = 1";
+    $envio = mysqli_query($con, $verificacaoArquivo);
+
+    if (mysqli_num_rows($envio)>0) {
+        return true;
     }
 }

@@ -190,8 +190,6 @@
     </div>
 </section>
 
-
-
 <script type="text/javascript">
     $(function () {
         $('#tbl').DataTable({

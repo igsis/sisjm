@@ -27,7 +27,7 @@ if(isset($_POST['login']))
 				$_SESSION['nome'] = $user['nome_completo'];
 				$_SESSION['idUser'] = $user['id'];
 				$log = "Fez login.";
-				//gravarLog($log);
+				gravarLog($log);
 				header("Location: visual/index.php");
 				gravarLog($sql);
 			}
@@ -47,7 +47,6 @@ if(isset($_POST['login']))
 	}
 }
 ?>
-
 <!DOCTYPE html>
 <html ng-app="jovemMonitor">
 <head>

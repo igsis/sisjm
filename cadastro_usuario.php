@@ -5,7 +5,7 @@ require "funcoes/funcoesConecta.php";
 $con = bancoMysqli();
 
 $url = 'http://' . $_SERVER['HTTP_HOST'] . '/sisjm/funcoes/api_verifica_email.php';
-$data = date('d/m/Y \à\s H:i:s');
+$data = date('d/m/Y');
 if (isset($_POST['cadastra'])) {
     $nome = $_POST['nome'];
     $RF = $_POST['rf'];
@@ -15,25 +15,23 @@ if (isset($_POST['cadastra'])) {
     $senha = $_POST['senha'];
     $confirmaSenha = $_POST['confirmaSenha'];
 
-        if (isset($_POST['cadastra'])) {
-            if ($senha == $confirmaSenha){
-                $senha = md5($senha);
-                $sql = "INSERT INTO usuarios (nome_completo, usuario, senha, RF, telefone, email, data_cadastro, publicado)
+    if ($senha == $confirmaSenha) {
+        $senha = md5($senha);
+        $sql = "INSERT INTO usuarios (nome_completo, usuario, senha, RF, telefone, email, data_cadastro, publicado)
         VALUES ('$nome', '$usuario','$senha', '$RF', '$telefone', '$email', '$data', 1)";
 
-                if (mysqli_query($con, $sql)) {
-                    $mensagem = mensagem("success", "Usuário cadastrado com sucesso! Você está sendo redirecionado para a tela de login.");
-                    echo "<script type=\"text/javascript\">
+        if (mysqli_query($con, $sql)) {
+            $mensagem = mensagem("success", "Usuário cadastrado com sucesso! Você está sendo redirecionado para a tela de login.");
+            echo "<script type=\"text/javascript\">
 						  window.setTimeout(\"location.href='index.php';\", 4000);
 					  </script>";
 
-                } else {
-                    $mensagem = mensagem("danger", "Erro no cadastro de usuário! Tente novamente.");
-                }
-            }
-        } else{
-            $mensagem = mensagem("danger", "Senhas não conferem!");
+        } else {
+            $mensagem = mensagem("danger", "Erro no cadastro de usuário! Tente novamente.");
         }
+    } else {
+        $mensagem = mensagem("danger", "Senhas não conferem!");
+    }
 }
 ?>
 <html ng-app="sisjm">
@@ -130,6 +128,9 @@ if (isset($_POST['cadastra'])) {
                         <!-- /.box-body -->
 
                         <div class="box-footer">
+                            <a href="index.php">
+                                <button type="button" class="btn btn-primary pull-left">Voltar</button>
+                            </a>
                             <button type="submit" name="cadastra" id="cadastra" class="btn btn-primary pull-right">
                                 Cadastrar
                             </button>
@@ -155,7 +156,7 @@ if (isset($_POST['cadastra'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
 <script>
-    /*function comparaSenhas() {
+    function comparaSenhas() {
         let senha = document.getElementById("senha");
         let confirmaSenha = document.getElementById("confirmaSenha");
 
@@ -165,81 +166,6 @@ if (isset($_POST['cadastra'])) {
             document.getElementById("cadastra").disabled = true;
         }
     }
-    function geraUsuarioRf() {
-
-        // pega o valor que esta escrito no RF
-        let usuarioRf = document.querySelector("#rgrf_usuario").value;
-
-        // tira os pontos do valor, ficando apenas os numeros
-        usuarioRf = usuarioRf.replace(/[^0-9]/g, '');
-        usuarioRf = parseInt(usuarioRf);
-
-        // adiciona o d antes do rf
-        usuarioRf = "d" + usuarioRf;
-
-        // limita o rf a apenas o d + 6 primeiros numeros do rf
-        let usuario = usuarioRf.substr(0, 7);
-
-        // passa o valor para o input
-        document.querySelector("[name='usuario']").value = usuario;
-    }
-
-
-    function geraUsuarioRg() {
-
-        // pega o valor que esta escrito no RG
-        let usuarioRg = document.querySelector("#rgrf_usuario").value;
-
-        // tira os pontos do valor, ficando apenas os numeros
-        usuarioRg = usuarioRg.replace(/[^0-9]/g, '');
-        usuarioRg = parseInt(usuarioRg);
-
-        // adiciona o x antes do rg
-        usuarioRg = "x" + usuarioRg;
-
-        // limita o rg a apenas o d + 6 primeiros numeros do rf
-        let usuario = usuarioRg.substr(0, 7);
-
-        // passa o valor para o input
-        document.querySelector("[name='usuario']").value = usuario;
-
-    }
-
-    $("input[name='jovem_monitor']").change(function () {
-        $('#rgrf_usuario').attr("disabled", false);
-
-        let jovemMonitor = document.getElementsByName("jovem_monitor");
-
-        for (i = 0; i < jovemMonitor.length; i++) {
-            if (jovemMonitor[i].checked) {
-                let escolhido = jovemMonitor[i].value;
-
-                if (escolhido == 1) {
-                    $('#rgrf_usuario').val('');
-                    $('#rgrf_usuario').focus();
-                    $('#rgrf_usuario').unmask();
-                    $('#rgrf_usuario').attr('maxlength', '');
-                    $('#rgrf_usuario').keypress(function (event) {
-                        geraUsuarioRg();
-                    });
-                    $('#rgrf_usuario').blur(function (event) {
-                        geraUsuarioRg();
-                    });
-
-                } else if (escolhido == 0) {
-                    $('#rgrf_usuario').val('');
-                    $('#rgrf_usuario').focus();
-                    $('#rgrf_usuario').mask('000.000.0');
-                    $('#rgrf_usuario').keypress(function (event) {
-                        geraUsuarioRf();
-                    });
-                    $('#rgrf_usuario').blur(function (event) {
-                        geraUsuarioRf();
-                    });
-                }
-            }
-        }
-    })
 
     const url = `<?=$url?>`;
 
@@ -268,7 +194,8 @@ if (isset($_POST['cadastra'])) {
                 }
             }
         });
-    });*/
+    });
+    */
 </script>
 </body>
 </html>

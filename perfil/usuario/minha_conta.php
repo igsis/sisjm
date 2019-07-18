@@ -35,7 +35,7 @@ if (isset($_POST['atualizar'])) {
 
         If (mysqli_query($con, $sql)) {
             $mensagem = mensagem("success", "Atualizado com sucesso!");
-            //gravarLog($sql);
+            gravarLog($sql);
         } else {
             $mensagem = mensagem("danger", "Erro ao atualizar! Tente novamente.");
             //gravarLog($sql);

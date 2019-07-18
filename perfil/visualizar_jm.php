@@ -2,14 +2,6 @@
 include "includes/menu.php";
 $con = bancoCapac();
 $idJm = $_POST['idJm'];
-$jovem_monitor = recuperaDadosCapac('pessoa_fisica', 'id', $idJm);
-
-$sql = "SELECT pf.id, jm.ativo, jm.valido
-        FROM pessoa_fisica AS pf 
-        JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
-        WHERE pf.publicado = 1 AND jm.pessoa_fisica_id = '$idJm'";
-$query = mysqli_query($con, $sql);
-$jm = mysqli_fetch_array($query);
 
 if (isset($_POST['edita'])){
     $ativo = $_POST['ativo'];
@@ -22,53 +14,63 @@ if (isset($_POST['edita'])){
     }
 }
 
-/*if(isset($_POST['apagar']))
+$sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero, pf.idUsuario, jm.ativo, jm.valido
+        FROM pessoa_fisica AS pf 
+        JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
+        WHERE pf.publicado = 1 AND jm.pessoa_fisica_id = '$idJm'";
+$query = mysqli_query($con, $sql);
+$jm = mysqli_fetch_array($query);
+
+if(isset($_POST['apagar']))
 {
     $idArquivo = $_POST['apagar'];
     $sql_apagar_arquivo = "UPDATE upload_arquivo SET publicado = 0 WHERE idUploadListaDocumento = '$idArquivo'";
     if(mysqli_query($con,$sql_apagar_arquivo))
     {
-        $mensagem = "<font color='#01DF3A'><strong>Arquivo apagado com sucesso!</strong></font>";
+        $mensagem2 = "<font color='#01DF3A'><strong>Arquivo apagado com sucesso!</strong></font>";
         gravarLog($sql_apagar_arquivo);
     }
     else
     {
-        $mensagem = "<font color='#FF0000'><strong>Erro ao apagar arquivo!</strong></font>";
+        $mensagem2 = "<font color='#FF0000'><strong>Erro ao apagar arquivo!</strong></font>";
     }
-}*/
+}
 ?>
 <section class="content-wrapper">
     <div class="content">
         <h4>DADOS JOVEM MONITOR</h4>
         <?php if (isset($mensagem)) {
             echo $mensagem;
-        } ?>
+        }
+        if (isset($mensagem2)) {
+            echo $mensagem2;
+        }?>
         <form method="POST" action="?perfil=visualizar_jm">
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="nome">Nome Completo </label>
                     <input type="text" class="form-control" id="nome" name="nome" maxlength="240" required
-                           value="<?= $jovem_monitor['nome'] ?>" readonly>
+                           value="<?= $jm['nome'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="nome">Nome Social </label>
                     <input type="text" class="form-control" id="nomeSocial" name="nomeSocial" maxlength="240" required
-                           value="<?= $jovem_monitor['nomeArtistico'] ?>" readonly>
+                           value="<?= $jm['nomeArtistico'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">RG</label>
                     <input type="text" class="form-control" id="rg" name="rg" required
-                           value="<?= $jovem_monitor['rg'] ?>" readonly>
+                           value="<?= $jm['rg'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">CPF </label>
                     <input type="text" class="form-control" id="cpf" name="cpf" required
-                           value="<?= $jovem_monitor['cpf'] ?>" readonly>
+                           value="<?= $jm['cpf'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">Data Nascimento </label>
                     <input type="text" class="form-control" id="nome" name="nome" required
-                           value="<?= exibirDataBr($jovem_monitor['dataNascimento']) ?>" readonly>
+                           value="<?= exibirDataBr($jm['dataNascimento']) ?>" readonly>
                 </div>
             </div>
             <h4>ENDEREÇO</h4>
@@ -76,42 +78,44 @@ if (isset($_POST['edita'])){
                 <div class="form-group col-md-4">
                     <label for="nome">Logradouro</label>
                     <input type="text" class="form-control" id="logradouro" name="logradouro" required
-                           value="<?= $jovem_monitor['logradouro'] ?>" readonly>
+                           value="<?= $jm['logradouro'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">Número </label>
                     <input type="text" class="form-control" id="numero" name="numero" required
-                           value="<?= $jovem_monitor['numero'] ?>" readonly>
+                           value="<?= $jm['numero'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">Bairro</label>
                     <input type="text" class="form-control" id="bairro" name="bairro" required
-                           value="<?= $jovem_monitor['bairro'] ?>" readonly>
+                           value="<?= $jm['bairro'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">CEP</label>
                     <input type="text" class="form-control" id="cep" name="cep" required
-                           value="<?= $jovem_monitor['cep'] ?>" readonly>
+                           value="<?= $jm['cep'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">Cidade</label>
                     <input type="text" class="form-control" id="cidade" name="cidade" required
-                           value="<?= $jovem_monitor['cidade'] ?>" readonly>
+                           value="<?= $jm['cidade'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="nome">Estado</label>
                     <input type="text" class="form-control" id="estado" name="estado" required
-                           value="<?= $jovem_monitor['estado'] ?>" readonly>
+                           value="<?= $jm['estado'] ?>" readonly>
                 </div>
             </div>
-
+            <!-- Exibir arquivos -->
             <div class="form-group">
                 <div class="col-md-12">
-                    <div class="table-responsive list_info"><h6>Arquivo(s) Anexado(s)</h6>
-                        <?php listaArquivosPessoa($jovem_monitor['idUsuario'], 7, 'visualizar_jm'); ?>
+                    <div class="table-responsive list_info"><h5> <b>Arquivo(s) Anexado(s) </b></h5>
+                        <?php listaArquivosPessoa($jm['idUsuario'], 7, 'visualizar_jm'); ?>
                     </div>
                 </div>
             </div>
+
+            <!-- Fim exbir arquivos-->
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="ativo">Válidar Cadastro:</label> <br>
@@ -136,21 +140,16 @@ if (isset($_POST['edita'])){
         </form>
     </div>
 
-    <!-- Confirmação de Exclusão -->
+    <!-- Confirmação de Exclusão
     <div class="modal fade" id="confirmApagar" role="dialog" aria-labelledby="confirmApagarLabel" aria-hidden="true">
-        ?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Excluir Arquivo</h4>
+                    <h4 class="modal-title">Excluir Arquivo?</h4>
                 </div>
-                <form action="?perfil=visualizar" method="post">
-
-                    <input type="hidden" name="idJm" id="idJm" value="<?= $jovem_monitor['idJm']?>">
-                </form>
                 <div class="modal-body">
-                    <p>Deseja realmente remover este arquivo?</p>
+                    <p>Confirma?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -158,8 +157,7 @@ if (isset($_POST['edita'])){
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Fim Confirmação de Exclusão -->
+    </div> Fim Confirmação de Exclusão -->
 </section>
 
 
