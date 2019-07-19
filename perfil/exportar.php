@@ -7,19 +7,25 @@ $displayForm = 'block';
 $displayBotoes = 'none';
 
 if (isset($_POST['filtrar'])) {
-    // $data = ($_POST['data']);
+    $datainicio = ($_POST['inicio']);
+    $datafim = $_POST['final'] ?? null;
 
-    /* if ($data != '') {
-         $filtro_data = "pf.dataAtualizacao > '$data'";
-     } else {
-         $filtro_data = "";
-     }*/
-
+    if ($datainicio != '') {
+        if ($datafim != '') {
+            $datafim = ($_POST['final']);
+            $filtro_data = "jm.data_cadastro BETWEEN '$datainicio' AND '$datafim'";
+        } else {
+            $filtro_data = "jm.data_cadastro >= '$datainicio'";
+        }
+    } else {
+        $mensagem = "Informe uma data para inicio da consulta";
+        $consulta = 0;
+    }
 
     $sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero 
             FROM pessoa_fisica AS pf 
             JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
-            WHERE pf.publicado = 1 AND 
+            WHERE $filtro_data AND pf.publicado = 1 AND 
             jm.ativo = 1 AND jm.valido = 1";
 
     $query = mysqli_query($con, $sql);
@@ -51,6 +57,7 @@ if(isset($_POST['excluir'])){
     <div class="box-body">
         <form method="POST" action="?perfil=exportar">
             <h4 align="center"><b> Exportar Jovem Monitor - Excel </b></h4>
+            <h6>
             <div class="row">
                 <br>
                 <div class="col-md-offset-3 col-md-3">
@@ -64,8 +71,7 @@ if(isset($_POST['excluir'])){
                 </div>
             </div>
             <br>
-            <input type="submit" class="btn btn-primary btn-lg btn-block" name="filtrar" id="filtrar" value="Filtrar">
-        </form>
+                <input type="submit" class="btn btn-primary btn-lg btn-block" name="filtrar" id="filtrar" value="Filtrar" disabled>
         <h5 align="center   "><?php if (isset($mensagem)) {
                 echo $mensagem;
             } ?></h5>
@@ -145,6 +151,17 @@ if(isset($_POST['excluir'])){
     });
 </script>
 <script>
+    function desabilitaFiltrar() {
+
+        var inicio = document.querySelector("#inicio");
+        var filtrar = document.querySelector("#filtrar");
+
+        if (inicio.value.length != 0) {
+            filtrar.disabled = false;
+        } else {
+            filtrar.disabled = true;
+        }
+    }
     function mostraDiv() {
         let form = document.querySelector('#testeTana');
         form.style.display = 'block';

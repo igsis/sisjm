@@ -7,16 +7,16 @@
     $displayBotoes = 'none';
 
     if (isset($_POST['filtrar'])) {
-        // $data = ($_POST['data']);
+        $data = ($_POST['data']);
         $nome = $_POST['nome'] ?? null;
         $rg = $_POST['rg'] ?? null;
         $cpf = $_POST['cpf'] ?? null;
 
-        /* if ($data != '') {
-             $filtro_data = "pf.dataAtualizacao > '$data'";
-         } else {
-             $filtro_data = "";
-         }*/
+        if ($data != '') {
+            $filtro_data = "AND jm.data_cadastro >= '$data'";
+        } else {
+            $filtro_data ="";
+        }
 
         if ($nome != '') {
             $filtro_nome = "AND pf.nome = '$nome'";
@@ -36,10 +36,11 @@
             $filtro_cpf = "";
         }
 
-        $sql = "SELECT pf.id AS idJm, pf.nome, pf.rg, pf.cpf, jm.ativo 
+        $sql = "SELECT pf.id AS idJm, pf.nome, pf.rg, pf.cpf, jm.ativo, jm.data_cadastro
             FROM pessoa_fisica AS pf 
             JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
             WHERE pf.publicado = 1 AND  jm.publicado = 1
+            $filtro_data
             $filtro_nome
             $filtro_rg
             $filtro_cpf";
@@ -110,7 +111,7 @@
                     <th>Nome</th>
                     <th>RG</th>
                     <th>CPF</th>
-                    <th>Ano</th>
+                    <th>Data Cadastro</th>
                     <th>Ativo/Inativo</th>
                     <th>Visualizar</th>
                     <th>Apagar</th>
@@ -129,7 +130,7 @@
                     echo "<td>" . $jovem_monitor['nome'] . "</td>";
                     echo "<td>" . $jovem_monitor['rg'] . "</td>";
                     echo "<td>" . $jovem_monitor['cpf'] . "</td>";
-                    echo "<td>" . $jovem_monitor['cpf'] . "</td>";
+                    echo "<td>" . exibirDataBr($jovem_monitor['data_cadastro']) . "</td>";
                     echo "<td>" . $ativo . "</td>";
                     echo "<td>
                                     <form method=\"POST\" action=\"?perfil=visualizar_jm\" role=\"form\">
@@ -138,33 +139,31 @@
                                     </form>
                                 </td>";
                     echo "<td>
-                                    <form method=\"POST\" action=\"?perfil=consulta\">
+                                    <form method=\"post\" id=\"formExcluir\" action=\"?perfil=consulta\">
                                     <input type='hidden' name='idJm' value='" . $jovem_monitor['idJm'] . "'>
-                                    <button type=\"button\" class=\"btn btn-block btn-danger\" id=\"excluiJm\"
-                                    data-toggle=\"modal\" data-target=\"#confirmApagar\" name=\"excluJm\"> <span class=\"glyphicon glyphicon-trash\"></span></button>
-                                    </form>
+                                    <button type=\"submit\" class=\"btn btn-block btn-danger\" id=\"excluiJm\" name=\"excluir\"> <span class=\"glyphicon glyphicon-trash\"></span></button>
+                                 </form>
                                 </td>";
                     echo "</tr>";
                     ?>
                     <!-- Confirmação de Exclusão -->
+
                     <div class="modal fade" id="confirmApagar" role="dialog" aria-labelledby="confirmApagarLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title">Excluir este cadastro?</h4>
+                                    <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                                    <h4 class="modal-title">Excluir este cadastro</h4>
                                 </div>
                                 <div class="modal-body">
                                     <p>Tem certeza que deseja excluir este Jovem Monitor?? </p>
                                 </div>
-                                <form action="?perfil=consulta" method="post">
-                                    <input type="hidden" name="idJm" id="idJm" value="<?= $jovem_monitor['idJm']?>">
-                                    <div class="modal-footer">
+                                <div class="modal-footer">
+                                    <form method="post" id="formExcluir" action="?perfil=consulta">
+                                        <input type='hidden' name='idJm' value='" . $jovem_monitor['idJm'] . "'>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                         <button type="submit" class="btn btn-danger" name="excluir" value="Apagar">Remover</button>
-                                    </div>
-                                </form>
-
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,7 +177,7 @@
                     <th>Nome</th>
                     <th>RG</th>
                     <th>CPF</th>
-                    <th>Ano</th>
+                    <th>Data Cadastro</th>
                     <th>Ativo/Inativo</th>
                     <th colspan="2" width="15%"></th>
                 </tr>
@@ -214,4 +213,5 @@
         let resultado = document.querySelector('#resultado');
         resultado.style.display = 'none';
     }
+
 </script>
