@@ -91,18 +91,18 @@ if(isset($_POST['login']))
         <form action="index.php" method="post">
             <div class="form-group has-feedback">
                 <label>Usuário</label>
-                <input type="text" name="login" class="form-control" ng-model="login.usuario" maxlength="7">
+                <input type="text" name="login" class="form-control" ng-model="login.usuario" maxlength="7" required>
             </div>
             <div class="form-group has-feedback">
                 <label>Senha</label>
-                <input type="password" name="senha" class="form-control" ng-model="login.senha" placeholder="Senha" maxlength="70">
+                <input type="password" name="senha" class="form-control" ng-model="login.senha" placeholder="Senha" maxlength="70" required>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8"></div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" ng-disabled="!login.usuario || !login.senha" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" ng-disabled="!login.usuario || !login.senha" class="btn btn-primary btn-block btn-flat">Entrar</button>
                 </div>
                 <!-- /.col -->
             </div>

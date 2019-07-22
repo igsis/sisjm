@@ -67,7 +67,6 @@ $usuario = recuperaDados('usuarios', 'id', $idUser);
 
                     <form method="POST" action="?perfil=usuario/minha_conta" role="form">
                         <div class="box-body">
-
                             <div class="row">
                                 <div class="form-group col-md-5">
                                     <label for="nome_completo">Nome: </label>

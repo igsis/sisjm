@@ -1,10 +1,13 @@
 ﻿<?php
 include "includes/menu.php";
 $con = bancoMysqli();
-
-if (isset($_SESSION['idEvento'])) {
-    unset($_SESSION['idEvento']);
-}
+$conn = bancoCapac();
+$sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, jm.data_cadastro 
+            FROM pessoa_fisica AS pf 
+            JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
+            WHERE pf.publicado = 1 AND jm.ativo = 1 AND jm.valido = 1 ORDER BY nome ASC";
+$query = mysqli_query($conn, $sql);
+$num = mysqli_num_rows($query);
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -16,55 +19,38 @@ if (isset($_SESSION['idEvento'])) {
             <div class="col-md-12">
                 <div class="box box-solid">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Mural de Atualizações</h3>
+                        <h3 class="box-title">Listagem de cadastros válidos e ativos</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="box-group" id="accordion">
-                            <?php
-                            $sql_avisos = "SELECT * FROM avisos WHERE publicado = '1' ORDER BY data DESC";
-                            $query_avisos = mysqli_query($con, $sql_avisos);
-                            $i = 1;
-                            $x = 1;
-                            while ($avisos = mysqli_fetch_array($query_avisos)) {
-                                $data = $avisos['data'];
-                                $msg = $avisos['mensagem'];
-                                $titulo = $avisos['titulo'];
+                            <table id="tbl" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Nome Social</th>
+                                    <th>Email</th>
+                                    <th>RG</th>
+                                    <th>CPF</th>
+                                    <th>Data Cadastro</th>
+                                </tr>
+                                </thead>
 
-                                $att = substr($msg, -31);
-                                $new_msg = substr($msg, 0, -31);
-
-                                if ($i == 1) {
-                                    $cor = "box-warning";
-                                    $aberto = "in";
-                                } else {
-                                    $cor = "box-info";
-                                    $aberto = "";
-                                }
-                                ?>
-                                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                                <div class="panel box <?= $cor ?>">
-                                    <div class="box-header with-border">
-                                        <h4 class="box-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$i?>">
-                                                <?= exibirDataBr($data). "  " . $titulo ?>
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse<?=$i?>" class="panel-collapse collapse<?=$aberto?>">
-                                        <div class="box-body bg-warning">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <h4><?= $new_msg . "<br><br>" . $att; ?></h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <?php
-                                $i++;
-                            }
-                            ?>
+                                echo "<tbody>";
+                                while ($jovem_monitor = mysqli_fetch_array($query)) {
+                                    echo "<tr>";
+                                    echo "<td>" . $jovem_monitor['nome'] . "</td>";
+                                    echo "<td>" . $jovem_monitor['nomeArtistico'] . "</td>";
+                                    echo "<td>" . $jovem_monitor['email'] . "</td>";
+                                    echo "<td>" . $jovem_monitor['rg'] . "</td>";
+                                    echo "<td>" . $jovem_monitor['cpf'] . "</td>";
+                                    echo "<td>" . exibirDataBr($jovem_monitor['data_cadastro']) . "</td>";
+                                    echo "</tr>";
+                                }
+                                echo "</tbody>";
+                                ?>
+                            </table>
                         </div>
                     </div>
                     <!-- /.box-body -->
