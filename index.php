@@ -107,8 +107,16 @@ if(isset($_POST['login']))
                 <!-- /.col -->
             </div>
         </form>
-        <p></p>
-        Não possui cadastro? <a href="cadastro_usuario.php" class="text-center">Clique aqui.</a>
+        <div class="row">
+            <br>
+            <div class="form-group col-md-6">
+                <label>Não possui cadastro? <a href="cadastro_usuario.php" class="text-center">Clique aqui. </a></label>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label> Esqueceu a senha? <a href="esqueceu_senha.php" class="text-center">Clique aqui.</a></label>
+            </div>
+        </div>
     </div>
     <!-- /.login-box-body -->
 </div>

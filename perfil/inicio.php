@@ -5,7 +5,7 @@ $conn = bancoCapac();
 $sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, jm.data_cadastro 
             FROM pessoa_fisica AS pf 
             JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
-            WHERE pf.publicado = 1 AND jm.ativo = 1 AND jm.valido = 1 ORDER BY nome ASC";
+            WHERE pf.publicado = 1 AND jm.ativo = 1 AND jm.valido = 1 AND jm.publicado = 1 ORDER BY nome ASC";
 $query = mysqli_query($conn, $sql);
 $num = mysqli_num_rows($query);
 ?>
