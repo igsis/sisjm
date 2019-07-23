@@ -14,13 +14,6 @@ if (isset($_POST['edita'])){
     }
 }
 
-$sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero, pf.idUsuario, jm.ativo, jm.valido
-        FROM pessoa_fisica AS pf 
-        JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
-        WHERE pf.publicado = 1 AND jm.pessoa_fisica_id = '$idJm'";
-$query = mysqli_query($con, $sql);
-$jm = mysqli_fetch_array($query);
-
 if(isset($_POST['apagar']))
 {
     $idArquivo = $_POST['apagar'];
@@ -35,6 +28,13 @@ if(isset($_POST['apagar']))
         $mensagem2 = "<font color='#FF0000'><strong>Erro ao apagar arquivo!</strong></font>";
     }
 }
+
+$sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero, pf.idUsuario, jm.ativo, jm.valido
+        FROM pessoa_fisica AS pf 
+        JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
+        WHERE pf.publicado = 1 AND jm.pessoa_fisica_id = '$idJm'";
+$query = mysqli_query($con, $sql);
+$jm = mysqli_fetch_array($query);
 ?>
 <section class="content-wrapper">
     <div class="content">
@@ -110,7 +110,7 @@ if(isset($_POST['apagar']))
             <div class="form-group">
                 <div class="col-md-12">
                     <div class="table-responsive list_info"><h5> <b>Arquivo(s) Anexado(s) </b></h5>
-                        <?php listaArquivosPessoa($jm['idUsuario'], 7, 'visualizar_jm'); ?>
+                        <?php listaArquivosPessoa($jm['idUsuario'], 7, 'visualizar_jm', $idJm); ?>
                     </div>
                 </div>
             </div>

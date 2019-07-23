@@ -1327,7 +1327,7 @@ function recuperaDadosCapac($tabela, $campo, $variavelCampo)
     return $campo;
 }
 
-function listaArquivosPessoa($idPessoa,$tipoPessoa,$pagina, $idsDeterminados = '', $table = '')
+function listaArquivosPessoa($idPessoa,$tipoPessoa,$pagina, $idJm, $idsDeterminados = '', $table = '')
 {
     $con = bancoCapac();
 
@@ -1368,8 +1368,8 @@ function listaArquivosPessoa($idPessoa,$tipoPessoa,$pagina, $idsDeterminados = '
 						<td class='list_description'>
 							<form id='apagarArq' method='POST' action='?perfil=".$pagina."'>
 								<input type='hidden' name='idPessoa' value='".$idPessoa."' />
-								<input type='hidden' name='idJm' value='".$idPessoa."' />
 								<input type='hidden' name='tipoPessoa' value='".$tipoPessoa."' />
+								<input type='hidden' name='idJm' value='".$idJm."' />
 								<input type='hidden' name='apagar' value='".$arquivo['idUploadListaDocumento']."' />
 								<input type='hidden' name='idListaDocumento' value='".$arquivo['idUploadListaDocumento']."' />
 								<button class='btn btn-theme' type='submit' data-toggle='modal' data-target='#confirmApagar' data-title='Remover Arquivo?' data-message='Deseja realmente excluir o arquivo ".$arquivo['documento']."?'>Remover

@@ -209,8 +209,7 @@
                 "<'row'<'col-sm-5'i><'col-sm-7 text-right'p>>",
         });
     });
-</script>
-<script>
+
     function mostraDiv() {
         let form = document.querySelector('#testeTana');
         form.style.display = 'block';
@@ -234,8 +233,7 @@
             filtrar.disabled = true;
         }
     }
-</script>
-<script type="text/javascript">
+
     $('#exclusao').on('show.bs.modal', function (e){
         let jm = $(e.relatedTarget).attr('data-name');
         let id = $(e.relatedTarget).attr('data-id');
