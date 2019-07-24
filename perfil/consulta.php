@@ -152,7 +152,7 @@
                     echo "</tr>";
                     ?>
                     <!-- Confirmação de Exclusão -->
-                    <div id="exclusao" class="modal modal-danger modal fade in" role="dialog">
+                    <div id="exclusao" class="modal" role="dialog">
                                 <div class="modal-dialog">
                                     <!--Modal content-->
                                     <div class="modal-content">
@@ -169,7 +169,7 @@
                                                 <input type="hidden" name="apagar" id="apagar">
                                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar
                                                 </button>
-                                                <input class=" btn btn-danger btn-outline" type="submit" name="excluir" value="Apagar">
+                                                <input class=" btn btn-danger" type="submit" name="excluir" value="Apagar">
                                             </form>
                                         </div>
                                     </div>

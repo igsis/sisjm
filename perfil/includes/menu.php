@@ -24,6 +24,7 @@ $query_perfil = mysqli_query($con,$sql_perfil);
             <li class="header">MÓDULOS</li>
             <li><a href="?perfil=consulta"><i class="fa fa-circle-o "></i><span>Consulta Jovem Monitor</span></a></li>
             <li><a href="?perfil=exportar"><i class="fa fa-circle-o"></i><span>Exportar para Excel</span></a></li>
+            <li><a href="?perfil=frm_habilita_cadastro_capac"><i class="fa fa-circle-o"></i><span>Cadastro CAPAC</span></a></li>
 
             <li class="header">MAIS</li>
             <li><a href="?perfil=usuario/minha_conta"><i class="fa fa-user"></i><span>Minha Conta</span></a></li>

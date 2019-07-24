@@ -1372,7 +1372,7 @@ function listaArquivosPessoa($idPessoa,$tipoPessoa,$pagina, $idJm, $idsDetermina
 								<input type='hidden' name='idJm' value='".$idJm."' />
 								<input type='hidden' name='apagar' value='".$arquivo['idUploadListaDocumento']."' />
 								<input type='hidden' name='idListaDocumento' value='".$arquivo['idUploadListaDocumento']."' />
-								<button class='btn btn-theme' type='submit' data-toggle='modal' data-target='#confirmApagar' data-title='Remover Arquivo?' data-message='Deseja realmente excluir o arquivo ".$arquivo['documento']."?'>Remover
+								<button class='btn btn-theme' type='submit'  data-title='Remover Arquivo?' data-message='Deseja realmente excluir o arquivo ".$arquivo['documento']."?' onclick=\"return confirm('Tem certeza que deseja realizar essa ação?')\">Remover
 								</button></td>
 							</form>";
             echo "</tr>";

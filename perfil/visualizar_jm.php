@@ -53,55 +53,55 @@ $jm = mysqli_fetch_array($query);
                            value="<?= $jm['nome'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="nome">Nome Social </label>
+                    <label for="nome_social">Nome Social </label>
                     <input type="text" class="form-control" id="nomeSocial" name="nomeSocial" maxlength="240" required
                            value="<?= $jm['nomeArtistico'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">RG</label>
+                    <label for="rg">RG</label>
                     <input type="text" class="form-control" id="rg" name="rg" required
                            value="<?= $jm['rg'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">CPF </label>
+                    <label for="cpf">CPF </label>
                     <input type="text" class="form-control" id="cpf" name="cpf" required
                            value="<?= $jm['cpf'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">Data Nascimento </label>
-                    <input type="text" class="form-control" id="nome" name="nome" required
+                    <label">Data Nascimento </label>
+                    <input type="text" class="form-control" id="dataNascimento" name="dataNascimento" required
                            value="<?= exibirDataBr($jm['dataNascimento']) ?>" readonly>
                 </div>
             </div>
             <h4>ENDEREÇO</h4>
             <div class="row">
                 <div class="form-group col-md-4">
-                    <label for="nome">Logradouro</label>
+                    <label>Logradouro</label>
                     <input type="text" class="form-control" id="logradouro" name="logradouro" required
                            value="<?= $jm['logradouro'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">Número </label>
+                    <label>Número </label>
                     <input type="text" class="form-control" id="numero" name="numero" required
                            value="<?= $jm['numero'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">Bairro</label>
+                    <label>Bairro</label>
                     <input type="text" class="form-control" id="bairro" name="bairro" required
                            value="<?= $jm['bairro'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">CEP</label>
+                    <label>CEP</label>
                     <input type="text" class="form-control" id="cep" name="cep" required
                            value="<?= $jm['cep'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">Cidade</label>
+                    <label>Cidade</label>
                     <input type="text" class="form-control" id="cidade" name="cidade" required
                            value="<?= $jm['cidade'] ?>" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="nome">Estado</label>
+                    <label>Estado</label>
                     <input type="text" class="form-control" id="estado" name="estado" required
                            value="<?= $jm['estado'] ?>" readonly>
                 </div>
@@ -139,25 +139,6 @@ $jm = mysqli_fetch_array($query);
             </div>
         </form>
     </div>
-
-    <!-- Confirmação de Exclusão
-    <div class="modal fade" id="confirmApagar" role="dialog" aria-labelledby="confirmApagarLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Excluir Arquivo?</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Confirma?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="confirm">Remover</button>
-                </div>
-            </div>
-        </div>
-    </div> Fim Confirmação de Exclusão -->
 </section>
 
 
