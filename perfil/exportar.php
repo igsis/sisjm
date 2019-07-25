@@ -22,7 +22,7 @@ if (isset($_POST['filtrar'])) {
         $consulta = 0;
     }
 
-    $sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero 
+    $sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero, jm.data_cadastro
             FROM pessoa_fisica AS pf 
             JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
             WHERE $filtro_data AND pf.publicado = 1 AND 
@@ -57,7 +57,6 @@ if(isset($_POST['excluir'])){
     <div class="box-body">
         <form method="POST" action="?perfil=exportar">
             <h4 align="center"><b> Exportar Jovem Monitor - Excel </b></h4>
-            <h6>
             <div class="row">
                 <br>
                 <div class="col-md-offset-3 col-md-3">
@@ -75,7 +74,9 @@ if(isset($_POST['excluir'])){
         <h5 align="center   "><?php if (isset($mensagem)) {
                 echo $mensagem;
             } ?></h5>
+        </form>
     </div>
+
 
     <div  id="resultado">
         <?php
@@ -106,6 +107,7 @@ if(isset($_POST['excluir'])){
                     <th>CEP</th>
                     <th>Cidade</th>
                     <th>Estado</th>
+                    <th>Data Cadastro</th>
                 </tr>
                 </thead>
 
@@ -125,6 +127,7 @@ if(isset($_POST['excluir'])){
                     echo "<td>" . $jovem_monitor['cep'] . "</td>";
                     echo "<td>" . $jovem_monitor['cidade'] . "</td>";
                     echo "<td>" . $jovem_monitor['estado'] . "</td>";
+                    echo "<td>" . exibirDataBr($jovem_monitor['data_cadastro']) . "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";
