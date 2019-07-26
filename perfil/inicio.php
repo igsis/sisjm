@@ -68,8 +68,6 @@ $num = mysqli_num_rows($query);
                                 <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Nome Social</th>
-                                    <th>Email</th>
                                     <th>RG</th>
                                     <th>CPF</th>
                                     <th>Data Cadastro</th>
@@ -89,8 +87,6 @@ $num = mysqli_num_rows($query);
                                     }
                                     echo "<tr>";
                                     echo "<td>" . $jovem_monitor['nome'] . "</td>";
-                                    echo "<td>" . $jovem_monitor['nomeArtistico'] . "</td>";
-                                    echo "<td>" . $jovem_monitor['email'] . "</td>";
                                     echo "<td>" . $jovem_monitor['rg'] . "</td>";
                                     echo "<td>" . $jovem_monitor['cpf'] . "</td>";
                                     echo "<td>" . exibirDataBr($jovem_monitor['data_cadastro']) . "</td>";
@@ -146,13 +142,11 @@ $num = mysqli_num_rows($query);
                                 <tfoot>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Nome Social</th>
-                                    <th>Email</th>
                                     <th>RG</th>
                                     <th>CPF</th>
                                     <th>Data Cadastro</th>
-                                    <th>Ativo/Inativo</th>
-                                    <th colspan="2" width="15%"></th>
+                                    <th>Válido/Inválido</th>
+                                    <th> </th>
                                 </tr>
                                 </tfoot>
                             </table>

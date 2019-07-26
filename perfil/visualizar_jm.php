@@ -58,17 +58,22 @@ $jm = mysqli_fetch_array($query);
                     <input type="text" class="form-control" id="nomeSocial" name="nomeSocial" maxlength="240" required
                            value="<?= $jm['nomeArtistico'] ?>" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="rg">RG</label>
                     <input type="text" class="form-control" id="rg" name="rg" required
                            value="<?= $jm['rg'] ?>" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="cpf">CPF </label>
                     <input type="text" class="form-control" id="cpf" name="cpf" required
                            value="<?= $jm['cpf'] ?>" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" required
+                           value="<?= $jm['email'] ?>" readonly>
+                </div>
+                <div class="form-group col-md-6">
                     <label">Data Nascimento </label>
                     <input type="text" class="form-control" id="dataNascimento" name="dataNascimento" required
                            value="<?= exibirDataBr($jm['dataNascimento']) ?>" readonly>
