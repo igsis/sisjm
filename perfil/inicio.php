@@ -64,7 +64,7 @@ $num = mysqli_num_rows($query);
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="box-group" id="accordion">
-                            <table id="tbl" class="table table-bordered table-striped">
+                            <table id="tbl" class="table table-bordered table-striped table-responsive">
                                 <thead>
                                 <tr>
                                     <th>Nome</th>
