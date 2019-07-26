@@ -16,6 +16,15 @@ if(isset($_POST['filtrar'])){
     }
 }
 
+if(isset($_POST['excluir'])){
+    $idJm = $_POST['idJm'];
+    $sql_apagar = "UPDATE jm_dados SET publicado = 0 WHERE pessoa_fisica_id = '$idJm'";
+    If(mysqli_query($conn,$sql_apagar)){
+        $mensagem = mensagem("success","Exclusão realizada com sucesso!");
+    }else{
+        $mensagem = mensagem("danger","Erro ao apagar! Tente novamente.");
+    }
+}
 $sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, jm.valido, jm.data_cadastro 
                     FROM pessoa_fisica AS pf 
                     JOIN jm_dados AS jm ON pf.id = jm.pessoa_fisica_id
@@ -41,11 +50,15 @@ $num = mysqli_num_rows($query);
                     <br/>
                 </div>
                 <div class="col-md-6">
-                    <label></label> <br>
+                    <br/>
                     <input type="hidden" name="idJm" id="idJm" value="<?= $idJm?>">
-                    <button type="submit" name="filtrar" class="btn btn-info pull-left">Filtrar</button>
+                    <button type="submit" name="filtrar" class="btn btn-primary pull-left">Filtrar</button>
                 </div>
             </form>
+            <?php if (isset($mensagem)) {
+            echo $mensagem;
+            }
+            ?>
             <div class="col-md-12">
                 <div class="box box-solid">
                     <!-- /.box-header -->
@@ -85,7 +98,7 @@ $num = mysqli_num_rows($query);
                                     echo "<td>
                                     <form method=\"POST\" action=\"?perfil=visualizar_jm\" role=\"form\">
                                     <input type='hidden' name='idJm' value='" . $jovem_monitor['idJm'] . "'>
-                                    <button type=\"submit\" name='carregar' class=\"btn btn-block\"><span class='glyphicon glyphicon-eye-open'></span></button>
+                                    <button type=\"submit\" name='carregar' class=\"btn btn-block btn-primary\"><span class='glyphicon glyphicon-eye-open'></span></button>
                                     </form>
                                 </td>";
                                     ?>

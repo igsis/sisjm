@@ -663,14 +663,6 @@ function recuperaDadosPublicado($tabela, $campo, $variavelCampo)
 		return $campo[0];
 	}
 
-	function recuperaUltimoDoUsuario($tabela,$idUser)
-	{
-		$con = bancoMysqli();
-		$sql = "SELECT * FROM $tabela WHERE idUsuario = $idUser ORDER BY 1 DESC LIMIT 0,1";
-		$query =  mysqli_query($con,$sql);
-		$campo = mysqli_fetch_array($query);
-		return $campo[0];
-	}
 
 	function retornaMes($mes)
 	{
@@ -1641,4 +1633,13 @@ function emailReset($token){
 </html>
     ";
     return $html;
+}
+
+function recuperaUltimoCapac($tabela)
+{
+    $con = bancoCapac();
+    $sql = "SELECT * FROM $tabela ORDER BY 1 DESC LIMIT 0,1";
+    $query =  mysqli_query($con,$sql);
+    $campo = mysqli_fetch_array($query);
+    return $campo[0];
 }
