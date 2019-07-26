@@ -84,7 +84,7 @@ if(isset($_POST['login']))
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-    <div class="login-logo"><b>Jovem Monitor - Teste</b></div>
+    <div class="login-logo"><b>Jovem Monitor - desenvolvimento</b></div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg"><?php if(isset($mensagem)){ echo $mensagem; } ?></p>
@@ -107,16 +107,7 @@ if(isset($_POST['login']))
                 <!-- /.col -->
             </div>
         </form>
-        <div class="row">
-            <br>
-            <div class="form-group col-md-6">
-                <label>Não possui cadastro? <a href="cadastro_usuario.php" class="text-center">Clique aqui. </a></label>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label> Esqueceu a senha? <a href="esqueceu_senha.php" class="text-center">Clique aqui.</a></label>
-            </div>
-        </div>
+        <label> Esqueceu a senha? <a href="esqueceu_senha.php" class="text-center">Clique aqui.</a></label>
     </div>
     <!-- /.login-box-body -->
 </div>
