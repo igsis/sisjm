@@ -19,7 +19,7 @@ $query_perfil = mysqli_query($con,$sql_perfil);
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MÓDULOS</li>
+            <li class="header">MENU PRINCIPAL</li>
             <li><a href="?secao=perfil"><i class="fa fa-circle-o text-aqua"></i><span>Home - Listagem</span></a></li>
             <li><a href="?perfil=exportar"><i class="fa fa-circle-o text-aqua"></i><span>Exportar para Excel</span></a></li>
             <li><a href="?perfil=cadastro_usuario"><i class="fa fa-circle-o text-aqua"></i><span>Cadastrar administrador</span></a></li>

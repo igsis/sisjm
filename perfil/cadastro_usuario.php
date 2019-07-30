@@ -34,10 +34,8 @@ if (isset($_POST['cadastra'])) {
 
 <div class="content-wrapper">
     <section class="content">
+        <h2 class="page-header">Cadastro Administrador</h2>
         <div class="box box-info">
-            <div class="box-header with-border">
-                <h3 class="box-title">Cadastro Administrador</h3>
-            </div>
             <div class="row" align="center">
                 <?php if (isset($mensagem)) {
                     echo $mensagem;
@@ -92,7 +90,7 @@ if (isset($_POST['cadastra'])) {
                     </div>
 
                     <div class="box-footer">
-                        <a href="../../index.php">
+                        <a href="?perfil=inicio">
                             <button type="button" class="btn btn-primary pull-left">Voltar</button>
                         </a>
                         <button type="submit" name="cadastra" id="cadastra" class="btn btn-primary pull-right">
