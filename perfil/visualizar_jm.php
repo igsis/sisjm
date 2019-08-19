@@ -3,17 +3,6 @@ include "includes/menu.php";
 $con = bancoCapac();
 $idJm = $_POST['idJm'];
 
-if (isset($_POST['edita'])){
-    $ativo = $_POST['ativo'];
-    $valido = $_POST['valido'];
-    $sql_update = "UPDATE jm_dados SET  ativo = '$ativo', valido = '$valido' WHERE pessoa_fisica_id = '$idJm'";
-    If(mysqli_query($con,$sql_update)){
-        $mensagem = mensagem("success","Alteração realizada com sucesso!");
-    }else{
-        $mensagem = mensagem("danger","Erro ao gravar! Tente novamente.");
-    }
-}
-
 if(isset($_POST['apagar']))
 {
     $idArquivo = $_POST['apagar'];
@@ -28,6 +17,18 @@ if(isset($_POST['apagar']))
         $mensagem2 = "<font color='#FF0000'><strong>Erro ao apagar arquivo!</strong></font>";
     }
 }
+
+if (isset($_POST['edita'])){
+    $ativo = $_POST['ativo'];
+    $valido = $_POST['valido'];
+    $sql_update = "UPDATE jm_dados SET  ativo = '$ativo', valido = '$valido' WHERE pessoa_fisica_id = '$idJm'";
+    If(mysqli_query($con,$sql_update)){
+        $mensagem = mensagem("success","Alteração realizada com sucesso!");
+    }else{
+        $mensagem = mensagem("danger","Erro ao gravar! Tente novamente.");
+    }
+}
+
 
 $sql = "SELECT pf.id AS idJm, pf.nome, pf.nomeArtistico, pf.email, pf.rg, pf.cpf, pf.dataNascimento, pf.logradouro, pf.bairro, pf.cidade, pf.estado, pf.cep, pf.numero, pf.idUsuario, jm.ativo, jm.valido
         FROM pessoa_fisica AS pf 
@@ -57,17 +58,22 @@ $jm = mysqli_fetch_array($query);
                     <input type="text" class="form-control" id="nomeSocial" name="nomeSocial" maxlength="240" required
                            value="<?= $jm['nomeArtistico'] ?>" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="rg">RG</label>
                     <input type="text" class="form-control" id="rg" name="rg" required
                            value="<?= $jm['rg'] ?>" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="cpf">CPF </label>
                     <input type="text" class="form-control" id="cpf" name="cpf" required
                            value="<?= $jm['cpf'] ?>" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" required
+                           value="<?= $jm['email'] ?>" readonly>
+                </div>
+                <div class="form-group col-md-6">
                     <label">Data Nascimento </label>
                     <input type="text" class="form-control" id="dataNascimento" name="dataNascimento" required
                            value="<?= exibirDataBr($jm['dataNascimento']) ?>" readonly>
@@ -133,7 +139,7 @@ $jm = mysqli_fetch_array($query);
                 </div>
             </div>
             <div class="box-footer">
-                <a href="?perfil=consulta"><button type="button" class="btn btn-info pull-left">Voltar</button></a>
+                <a href="?perfil=inicio"><button type="button" class="btn btn-info pull-left">Voltar</button></a>
                 <input type="hidden" name="idJm" id="idJm" value="<?= $idJm?>">
                 <button type="submit" name="edita" class="btn btn-info pull-right">Gravar</button>
             </div>

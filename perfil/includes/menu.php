@@ -19,12 +19,11 @@ $query_perfil = mysqli_query($con,$sql_perfil);
     <section class="sidebar">
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li><a href="?secao=perfil"><i class="fa fa-home"></i><span>Home</span></a></li>
-
-            <li class="header">MÓDULOS</li>
-            <li><a href="?perfil=consulta"><i class="fa fa-circle-o "></i><span>Consulta Jovem Monitor</span></a></li>
-            <li><a href="?perfil=exportar"><i class="fa fa-circle-o"></i><span>Exportar para Excel</span></a></li>
-            <li><a href="?perfil=frm_habilita_cadastro_capac"><i class="fa fa-circle-o"></i><span>Cadastro CAPAC</span></a></li>
+            <li class="header">MENU PRINCIPAL</li>
+            <li><a href="?secao=perfil"><i class="fa fa-circle-o text-aqua"></i><span>Home - Listagem</span></a></li>
+            <li><a href="?perfil=exportar"><i class="fa fa-circle-o text-aqua"></i><span>Exportar para Excel</span></a></li>
+            <li><a href="?perfil=cadastro_usuario"><i class="fa fa-circle-o text-aqua"></i><span>Cadastrar administrador</span></a></li>
+            <li><a href="?perfil=frm_habilita_cadastro_capac"><i class="fa fa-circle-o text-aqua"></i><span>Cadastro CAPAC</span></a></li>
 
             <li class="header">MAIS</li>
             <li><a href="?perfil=usuario/minha_conta"><i class="fa fa-user"></i><span>Minha Conta</span></a></li>
