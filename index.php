@@ -84,7 +84,7 @@ if(isset($_POST['login']))
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-    <div class="login-logo"><b>Jovem Monitor - teste</b></div>
+    <div class="login-logo"><b>Jovem Monitor</b></div>
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg"><?php if(isset($mensagem)){ echo $mensagem; } ?></p>
