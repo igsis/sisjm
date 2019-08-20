@@ -79,63 +79,70 @@ $num = mysqli_num_rows($query);
 
                                 <?php
                                 echo "<tbody>";
-                                while ($jovem_monitor = mysqli_fetch_array($query)) {
-                                    if ($jovem_monitor['valido'] == 1) {
-                                        $valido = "Válido";
-                                    } else {
-                                        $valido = "Inválido";
-                                    }
-                                    echo "<tr>";
-                                    echo "<td>" . $jovem_monitor['nome'] . "</td>";
-                                    echo "<td>" . $jovem_monitor['rg'] . "</td>";
-                                    echo "<td>" . $jovem_monitor['cpf'] . "</td>";
-                                    echo "<td>" . exibirDataBr($jovem_monitor['data_cadastro']) . "</td>";
-                                    echo "<td>" . $valido . "</td>";
-                                    echo "<td>
-                                    <form method=\"POST\" action=\"?perfil=visualizar_jm\" role=\"form\">
-                                    <input type='hidden' name='idJm' value='" . $jovem_monitor['idJm'] . "'>
-                                    <button type=\"submit\" name='carregar' class=\"btn btn-block btn-primary\"><span class='glyphicon glyphicon-eye-open'></span></button>
-                                    </form>
-                                </td>";
-                                    ?>
-                                    <td>
-                                        <form method="post" id="formExcluir">
-                                            <input type="hidden" name="idJm" value="<?= $jovem_monitor['idJm'] ?>">
-                                            <button type="button" class="btn btn-block btn-danger" id="excluiEvento"
-                                                    data-toggle="modal" data-target="#exclusao" name="excluiEvento"
-                                                    data-name="<?= $jovem_monitor['nome'] ?>"
-                                                    data-id="<?= $jovem_monitor['idJm'] ?>"><span class="glyphicon glyphicon-trash"></span></button>
+                                if ($num >= 1) {
+                                    while ($jovem_monitor = mysqli_fetch_array($query)) {
+                                        if ($jovem_monitor['valido'] == 1) {
+                                            $valido = "Válido";
+                                        } else {
+                                            $valido = "Inválido";
+                                        }
+                                        echo "<tr>";
+                                        echo "<td>" . $jovem_monitor['nome'] . "</td>";
+                                        echo "<td>" . $jovem_monitor['rg'] . "</td>";
+                                        echo "<td>" . $jovem_monitor['cpf'] . "</td>";
+                                        echo "<td>" . exibirDataBr($jovem_monitor['data_cadastro']) . "</td>";
+                                        echo "<td>" . $valido . "</td>";
+                                        echo "<td>
+                                        <form method=\"POST\" action=\"?perfil=visualizar_jm\" role=\"form\">
+                                        <input type='hidden' name='idJm' value='" . $jovem_monitor['idJm'] . "'>
+                                        <button type=\"submit\" name='carregar' class=\"btn btn-block btn-primary\"><span class='glyphicon glyphicon-eye-open'></span></button>
                                         </form>
-                                    </td>
-                                    <?php
-                                    echo "</tr>";
-                                    ?>
-                                    <!-- Confirmação de Exclusão -->
-                                    <div id="exclusao" class="modal" role="dialog">
-                                        <div class="modal-dialog">
-                                            <!--Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Confirmação de Exclusão</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Tem certeza que deseja excluir este Jovem Monitor?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form action="?perfil=inicio" method="post">
-                                                        <input type="hidden" name="idJm" id="idJm" value="">
-                                                        <input type="hidden" name="apagar" id="apagar">
-                                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar
+                                    </td>";
+                                        ?>
+                                        <td>
+                                            <form method="post" id="formExcluir">
+                                                <input type="hidden" name="idJm" value="<?= $jovem_monitor['idJm'] ?>">
+                                                <button type="button" class="btn btn-block btn-danger" id="excluiEvento"
+                                                        data-toggle="modal" data-target="#exclusao" name="excluiEvento"
+                                                        data-name="<?= $jovem_monitor['nome'] ?>"
+                                                        data-id="<?= $jovem_monitor['idJm'] ?>"><span
+                                                            class="glyphicon glyphicon-trash"></span></button>
+                                            </form>
+                                        </td>
+                                        <?php
+                                        echo "</tr>";
+                                        ?>
+                                        <!-- Confirmação de Exclusão -->
+                                        <div id="exclusao" class="modal" role="dialog">
+                                            <div class="modal-dialog">
+                                                <!--Modal content-->
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            &times;
                                                         </button>
-                                                        <input class=" btn btn-danger" type="submit" name="excluir" value="Apagar">
-                                                    </form>
+                                                        <h4 class="modal-title">Confirmação de Exclusão</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Tem certeza que deseja excluir este Jovem Monitor?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form action="?perfil=inicio" method="post">
+                                                            <input type="hidden" name="idJm" id="idJm" value="">
+                                                            <input type="hidden" name="apagar" id="apagar">
+                                                            <button type="button" class="btn btn-default pull-left"
+                                                                    data-dismiss="modal">Cancelar
+                                                            </button>
+                                                            <input class=" btn btn-danger" type="submit" name="excluir"
+                                                                   value="Apagar">
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Fim Confirmação de Exclusão -->
-                                    <?php
+                                        <!-- Fim Confirmação de Exclusão -->
+                                        <?php
+                                    }
                                 }
                                 echo "</tbody>";
                                 ?>
